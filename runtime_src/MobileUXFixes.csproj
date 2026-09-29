@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    「手机操作优化」Mod —— 托管运行时程序集。
+
+    刻意不用 Godot.NET.Sdk（要联网还原包 + 源码生成器）；本入口只用
+    Godot 普通 API 和游戏程序集的公开成员。
+
+    入口程序集身份名用唯一名 JTYMobileUXFixes，避免与其他 Mod 的 "ModAssembly" 撞车；
+    打包环节会改名为 ModAssembly.dll 放进包内 Runtime/（mod.json 的 runtimeAssembly 是
+    硬编码字面量，文件名不可变，改的只是"身份"）。
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <AssemblyName>JTYMobileUXFixes</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Deterministic>true</Deterministic>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <!-- 压掉 MSB3277 版本冲突警告（否则构建日志膨胀、耗时变长） -->
+    <NoWarn>$(NoWarn);MSB3277</NoWarn>
+    <MSBuildWarningsAsMessages>MSB3277</MSBuildWarningsAsMessages>
+    <GodotRefDir Condition="'$(GodotRefDir)' == ''">C://Users//txgcs//Downloads//植物大战僵尸杂交重制版//data_PlantsVsZombies_windows_x86_64</GodotRefDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="check_*.cs" />
+    <None Include="check_*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Private=false：游戏程序集不进输出，运行时由引擎自己那份解析 -->
+    <Reference Include="GodotSharp">
+      <HintPath>$(GodotRefDir)\GodotSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="PlantsVsZombies">
+      <HintPath>$(GodotRefDir)\PlantsVsZombies.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

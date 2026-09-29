@@ -1,0 +1,10 @@
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\bin\Release\JTYMobileUXFixes.deps.json
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\bin\Release\JTYMobileUXFixes.dll
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\obj\Release\MobileUXFixes.csproj.AssemblyReference.cache
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\obj\Release\MobileUXFixes.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\obj\Release\MobileUXFixes.AssemblyInfoInputs.cache
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\obj\Release\MobileUXFixes.AssemblyInfo.cs
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\obj\Release\MobileUXFixes.csproj.CoreCompileInputs.cache
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\obj\Release\JTYMobileUXFixes.dll
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\obj\Release\refint\JTYMobileUXFixes.dll
+C:\Users\txgcs\WorkBuddy\zjb\mod\MobileUXFixes\runtime_src\obj\Release\ref\JTYMobileUXFixes.dll

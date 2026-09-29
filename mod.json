@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "id": "mobileuxfixes",
+  "name": "手机操作优化",
+  "version": "1.0.2",
+  "author": "本地",
+  "description": "手机版操作体验优化：①选卡界面想上下滑动却误选植物 → 松手时位移超阈值自动撤销误选；②战斗中误触植物卡后再点同一张即取消选择；③关卡/章节选择界面点击入口时有压暗+缩放的按压反馈；④图鉴-工具页新增「自动拾取」框，阳光与金币两个独立开关（写入存档，重启保留，并同步场上已生成的阳光/金币）。四项功能各带内部开关，默认全开。",
+  "dependencies": [],
+  "conflicts": [],
+  "provides": {},
+  "overrides": {},
+  "scripts": [],
+  "runtimeAssembly": "Runtime/ModAssembly.dll",
+  "runtimeEntryType": "MobileUXFixesEntry",
+  "runtimeApiVersion": 1,
+  "runtimeAssemblyPolicy": "optional",
+  "blueprints": [],
+  "translations": [],
+  "resources": [
+    "Runtime/ModAssembly.dll"
+  ]
+}
