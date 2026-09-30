@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """「手机操作优化」Mod —— 编译 → 打包 → 装机 一条龙。
 
+★ 本包只含 ①滑动误选撤销 / ②战斗中误触取消；
+  原来的 ③按压反馈 / ④自动拾取开关 已拆到独立包「点击反馈与自动拾取」
+  （`mod/MobileTapFeedback/`），那边有自己的 build_mod.py，改完记得分别打包。
+
 用法：
     python build_mod.py             # 只编译 + 打包
     python build_mod.py --install   # 继续装机（覆盖 Mods/*.pmod + 清解包缓存）
