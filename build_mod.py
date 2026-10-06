@@ -21,14 +21,32 @@ import subprocess
 import sys
 import zipfile
 import hashlib
+# --- 本机路径适配（自动注入；换机器只改 mods/_modenv.py）---
+import os as _os
+import sys as _sys
 
-ROOT = r"C:\Users\txgcs\WorkBuddy\zjb"
-BASE = os.path.join(ROOT, "mod", "MobileUXFixes")
+_MROOT = _os.path.dirname(_os.path.abspath(__file__))
+while not _os.path.isfile(_os.path.join(_MROOT, "_modenv.py")):
+    _p = _os.path.dirname(_MROOT)
+    if _p == _MROOT:
+        break
+    _MROOT = _p
+if _MROOT not in _sys.path:
+    _sys.path.insert(0, _MROOT)
+from _modenv import (  # noqa: E402
+    MODS_ROOT, WORKSPACE, REF_DIR, GAME, UNPACK, UD, MODS_DIR, CACHE,
+    PY, DOTNET, DOTNET_ROOT, require_ref_dir, ensure_mods, describe,
+)
+# --- 适配块结束 ---
+
+# 原为作者的 WorkBuddy 工程根；现在指向本工作区的 mods/ 根
+ROOT = MODS_ROOT
+BASE = _os.path.dirname(_os.path.abspath(__file__))   # ← 本 Mod 自己的目录
 SRC = os.path.join(BASE, "runtime_src")
-DIST = os.path.join(ROOT, "mod", "dist", "MobileUXFixes.pmod")
-DOTNET = os.path.join(ROOT, "tools", "dotnet9", "dotnet.exe")
+DIST = os.path.join(BASE, "dist", "MobileUXFixes.pmod")
+DOTNET = DOTNET
 
-UD = r"C:\Users\txgcs\AppData\Roaming\Godot\app_userdata\植物大战僵尸杂交版"
+UD = UD
 MODS = os.path.join(UD, "Mods")
 CACHE = os.path.join(UD, "ModsCache")
 
@@ -41,7 +59,7 @@ out = []
 def log(s):
     out.append(str(s))
     try:
-        with open(os.path.join(ROOT, "mod", "_mobileuxfixes_build.log"), "w", encoding="utf-8") as f:
+        with open(os.path.join(BASE, "_mobileuxfixes_build.log"), "w", encoding="utf-8") as f:
             f.write("\n".join(out))
     except Exception:
         pass
@@ -56,13 +74,13 @@ def md5(path):
 
 
 def compile_asm():
-    home = os.path.join(ROOT, "tools", "dotnet_home")
+    home = os.path.join(WORKSPACE, ".cache", "dotnet_home")
     tmpd = os.path.join(home, "tmp")
-    nuget = os.path.join(ROOT, "tools", "nuget")
+    nuget = os.path.join(WORKSPACE, ".cache", "nuget")
     for d in (home, tmpd, nuget):
         os.makedirs(d, exist_ok=True)
     env = dict(os.environ)
-    env["DOTNET_ROOT"] = os.path.join(ROOT, "tools", "dotnet9")
+    env["DOTNET_ROOT"] = DOTNET_ROOT   # ← mods/_modenv.py 从 dotnet.exe 反推
     env["DOTNET_CLI_HOME"] = home
     env["TEMP"] = tmpd
     env["TMP"] = tmpd
@@ -96,7 +114,10 @@ def compile_asm():
         log("[compile] 首次：先 restore")
         rc = run(["restore"], 900)
     if rc == 0:
+        # 本机适配：csproj 里写死的 GodotRefDir 已清空，必须在这里显式传入，
+        # 否则 GodotSharp / PlantsVsZombies 解析不到，报一屏 CS0246。
         rc = run(["build", "-c", "Release", "--no-restore",
+                  "-p:GodotRefDir=" + require_ref_dir(),
                   "-p:UseSharedCompilation=false", "-m:1", "-nodeReuse:false",
                   "-v:q", "-nologo"], 600)
     with open(os.path.join(SRC, "build.log"), "w", encoding="utf-8") as f:
@@ -204,7 +225,7 @@ if __name__ == "__main__":
         log(traceback.format_exc())
         rc = 1
     txt = "\n".join(out)
-    with open(os.path.join(ROOT, "mod", "_mobileuxfixes_build.log"), "w", encoding="utf-8") as f:
+    with open(os.path.join(BASE, "_mobileuxfixes_build.log"), "w", encoding="utf-8") as f:
         f.write(txt)
     print(txt)
     sys.exit(rc)

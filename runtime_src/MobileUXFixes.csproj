@@ -30,7 +30,7 @@
     <!-- 压掉 MSB3277 版本冲突警告（否则构建日志膨胀、耗时变长） -->
     <NoWarn>$(NoWarn);MSB3277</NoWarn>
     <MSBuildWarningsAsMessages>MSB3277</MSBuildWarningsAsMessages>
-    <GodotRefDir Condition="'$(GodotRefDir)' == ''">C://Users//txgcs//Downloads//植物大战僵尸杂交重制版//data_PlantsVsZombies_windows_x86_64</GodotRefDir>
+    <GodotRefDir Condition="'$(GodotRefDir)' == ''"></GodotRefDir>
   </PropertyGroup>
 
   <ItemGroup>
